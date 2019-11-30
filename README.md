@@ -1,5 +1,5 @@
 # MiBand3
-Library to work with Xiaomi MiBand 3 copied from https://github.com/yogeshojha/MiBand3.git for testing.
+Library to work with Xiaomi MiBand 3
 
 Base lib provided by Leo Soares
 Additional debug & fixes was made by Volodymyr Shymanskyy
@@ -8,7 +8,18 @@ Additional debug & fixes was made by Volodymyr Shymanskyy
 
 ### Install dependencies
 
+
+
 `pip install -r requirements.txt`
+
+### Using python 3
+
+If you're having python 3.x just use following codes to automatically convert files:
+
+`2to3 -w main.py`
+`2to3 -w auth.py`
+
+### Connection to MiBand
 
 Turn on your Bluetooth
 
@@ -25,3 +36,7 @@ Run this to auth device
 If you having problems(BLE can glitch sometimes)
 
 ```sudo hciconfig hci0 reset```
+
+### If you have trouble installing bluepy
+
+```sudo apt-get install libglib2-dev  ```

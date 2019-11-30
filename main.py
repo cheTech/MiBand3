@@ -1,4 +1,37 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from auth import MiBand3
+from constants import ALERT_TYPES
+import json
 import sys
+import time
+
+
+def heartRateHandler(rateValue):
+    band.send_missed_call("Пульс:\n%s" % (rateValue))
+    print("Heart rate:", rateValue)
+
+
+cfg = json.load(open("settings.json"))
+
+band = MiBand3(cfg["Band Address"], debug=True)
+
+band.setSecurityLevel(level="medium")
+
+if len(sys.argv) > 2:
+    if band.initialize():
+        print("Initialized...")
+    band.disconnect()
+    sys.exit(0)
+else:
+    band.authenticate()
+
+band.send_missed_call("Считывание пульса запущено!\nОжидайте данных в программе!")
+
+band.start_raw_data_realtime(heart_measure_callback=heartRateHandler)
+
+"""
+import sys 
 from auth import MiBand3
 from cursesmenu import *
 from cursesmenu.items import *
@@ -80,3 +113,4 @@ menu.append_item(miss_call_alert)
 menu.append_item(heart_beat_menu)
 menu.append_item(dfu_update_menu)
 menu.show()
+"""
